@@ -1,7 +1,7 @@
 import type { IconLink } from "../components/ui/icons";
 import type { UIKey } from "../i18n/ui";
 
-export const siteUrl = "https://hackergarten-stg.github.io";
+export const siteUrl = "https://hackergarten-stuttgart.github.io";
 
 /** Every external destination the site links to, declared once. */
 export const links = {
@@ -9,7 +9,7 @@ export const links = {
   meetupEvents:
     "https://www.meetup.com/hackergarten-stuttgart/events/?type=upcoming",
   discord: "https://discord.gg/EXEP5aQx8y",
-  github: "https://github.com/hackergarten-stg",
+  github: "https://github.com/hackergarten-stuttgart",
   hackergarten: "https://hackergarten.net",
   maps: "https://maps.app.goo.gl/va9SG3uaFDLB9QTP8",
   codecentric: "https://www.codecentric.de/standorte/stuttgart",
