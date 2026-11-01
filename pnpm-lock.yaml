@@ -11,6 +11,9 @@ importers:
       astro:
         specifier: ^7.1.6
         version: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(jiti@2.7.0)
+      lucide:
+        specifier: ^1.66.0
+        version: 1.66.0
       simple-icons:
         specifier: ^16.34.0
         version: 16.34.0
@@ -1331,6 +1334,9 @@ packages:
   lru-cache@11.5.2:
     resolution: {integrity: sha512-4pfM1Ff0x50o0tQwb5ucw/RzNyD0/YJME6IVcStalZuMWxdt3sR3huStTtxz4PUmvZfRguvDejasvQ2kifR11g==}
     engines: {node: 20 || >=22}
+
+  lucide@1.66.0:
+    resolution: {integrity: sha512-Ngq8coV3XJ9S/DLTNnIWk9lmdJusoSnuuoO1rK7C0H9/VaV93LoWkv/u5GyUAJhL+rFesAd4gL3YG544bnH6gQ==}
 
   magic-string@1.1.0:
     resolution: {integrity: sha512-kS3VHe0nEPST2saQV4Rbkchcd3UBRkVTQHo1D3h/ZTwFDhai/mfKkmtPAtD129EOI7K3HlHIsFOt0WrI2/oU9g==}
@@ -3043,6 +3049,8 @@ snapshots:
   lodash.truncate@4.4.2: {}
 
   lru-cache@11.5.2: {}
+
+  lucide@1.66.0: {}
 
   magic-string@1.1.0:
     dependencies:
