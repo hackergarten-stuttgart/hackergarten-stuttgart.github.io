@@ -1,5 +1,4 @@
 ---
-import { inferRemoteSize } from 'astro:assets';
 import { render, type CollectionEntry } from 'astro:content';
 import { formatDate, getLocalePath, t, type Lang } from '../../i18n/ui';
 import ExternalLink from '../ui/ExternalLink.astro';
@@ -18,8 +17,6 @@ interface Props {
 const { lang, project } = Astro.props;
 const { title, date, summary, github } = project.data;
 const { Content } = await render(project);
-const avatarsUrl = github?.avatars && `${links.contribRocks}?repo=${github.repo}&columns=10`;
-const avatarsSize = avatarsUrl && (await inferRemoteSize(avatarsUrl));
 ---
 
 <Section size="lg">
@@ -30,26 +27,27 @@ const avatarsSize = avatarsUrl && (await inferRemoteSize(avatarsUrl));
 
   <header class="header">
     <h1 class="title">{title}</h1>
-    {github && <Shields repo={github.repo} names={github.shields} />}
+    {github && <Shields repo={github.repo} url={github.url} names={github.shields} />}
     <p class="summary">{summary}</p>
   </header>
 
   <Prose>
     <Content />
     {
-      github && avatarsUrl && avatarsSize && (
+      github?.avatars && (
         <>
           <h2>{t(lang, 'projects.contributors')}</h2>
-          <ExternalLink href={`${github.url}${shields.contributors.href}`}>
-            <img
-              class="contributors-faces"
-              src={avatarsUrl}
-              alt={t(lang, 'projects.contributors.avatars')}
-              width={avatarsSize.width}
-              height={avatarsSize.height}
-              fetchpriority="high"
-            />
-          </ExternalLink>
+          <div>
+            <ExternalLink href={`${github.url}${shields.contributors.href}`}>
+              <img
+                class="contributors-faces"
+                src={`${links.contribRocks}?repo=${github.repo}&columns=10`}
+                alt={t(lang, 'projects.contributors.avatars')}
+                loading="lazy"
+                decoding="async"
+              />
+            </ExternalLink>
+          </div>
         </>
       )
     }
@@ -60,7 +58,7 @@ const avatarsSize = avatarsUrl && (await inferRemoteSize(avatarsUrl));
       github && (
         <>
           <ExternalLink href={github.url} hint>
-            <Icon name="git" />
+            <Icon name="github" />
             {t(lang, 'projects.repo')}
           </ExternalLink>
           <span aria-hidden="true">·</span>
@@ -116,6 +114,8 @@ const avatarsSize = avatarsUrl && (await inferRemoteSize(avatarsUrl));
     display: block;
     max-width: 100%;
     height: auto;
+    border: 0;
+    border-radius: 0;
   }
 
   .meta {

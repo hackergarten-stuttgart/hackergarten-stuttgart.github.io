@@ -1,6 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { shieldNames } from "./config/shields";
+import { links } from "./config/site";
 
 /**
  * One markdown file per project in `src/content/projects/`. The filename is the
@@ -25,7 +26,7 @@ export const collections = {
         })
         .transform((github) => ({
           ...github,
-          url: `https://github.com/${github.repo}`,
+          url: `${links.githubBase}/${github.repo}`,
         }))
         .optional(),
     }),

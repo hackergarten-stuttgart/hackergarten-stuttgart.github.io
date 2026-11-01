@@ -1,5 +1,4 @@
 ---
-import { inferRemoteSize } from 'astro:assets';
 import { links } from '../../config/site';
 import { externalAttrs } from './external';
 import { shields, type ShieldName } from '../../config/shields';
@@ -7,26 +6,25 @@ import { shields, type ShieldName } from '../../config/shields';
 interface Props {
   /** Repository as `owner/name`. */
   repo: string;
+  /** Repository page the badges link into. */
+  url: string;
   names: ShieldName[];
 }
 
-const { repo, names } = Astro.props;
-const url = `https://github.com/${repo}`;
-const badges = await Promise.all(
-  names.map(async (name) => {
-    const src = `${links.shields}/${shields[name].path}/${repo}`;
-    return { ...shields[name], src, size: await inferRemoteSize(src) };
-  }),
-);
+const { repo, url, names } = Astro.props;
+const badges = names.map((name) => ({
+  ...shields[name],
+  src: `${links.shields}/${shields[name].path}/${repo}`,
+}));
 ---
 
 {
   badges.length > 0 && (
     <ul class="shields">
-      {badges.map(({ href, alt, src, size }) => (
+      {badges.map(({ href, alt, src }) => (
         <li>
           <a href={`${url}${href}`} {...externalAttrs()}>
-            <img src={src} alt={alt} width={size.width} height={size.height} fetchpriority="high" />
+            <img src={src} alt={alt} />
           </a>
         </li>
       ))}
@@ -48,9 +46,10 @@ const badges = await Promise.all(
     display: block;
   }
 
-  /* Badge widths change with their values; let the live SVG set it rather than the build-time probe. */
+  /* Badge widths change with their values; the fixed height reserves the space. */
   .shields img {
     display: block;
     width: auto;
+    height: var(--shield-height);
   }
 </style>
