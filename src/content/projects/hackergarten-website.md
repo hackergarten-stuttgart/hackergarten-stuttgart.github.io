@@ -2,7 +2,10 @@
 title: Die Website des Hackergarten Stuttgart
 date: 2026-08-04
 summary: Die Website, die du gerade liest
-repo: https://github.com/hackergarten-stuttgart/hackergarten-stuttgart.github.io
+github:
+  repo: hackergarten-stuttgart/hackergarten-stuttgart.github.io
+  shields: [stars, forks, contributors]
+  avatars: true
 ---
 
 Unser erstes Projekt ist die Seite, auf der du gerade bist: die Website des Hackergarten Stuttgart.

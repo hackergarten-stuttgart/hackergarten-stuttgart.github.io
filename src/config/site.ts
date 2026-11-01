@@ -15,6 +15,8 @@ export const links = {
   codecentric: "https://www.codecentric.de/standorte/stuttgart",
   wifo: "https://wrs.region-stuttgart.de/",
   heroVideo: "https://www.youtube-nocookie.com/embed/Rf5srOnhxgA",
+  shields: "https://img.shields.io",
+  contribRocks: "https://contrib.rocks/image",
 } as const;
 
 /**

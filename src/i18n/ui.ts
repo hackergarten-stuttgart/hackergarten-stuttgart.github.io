@@ -74,6 +74,9 @@ export const ui = {
       "Woran wir bei den letzten Treffen gearbeitet haben – von kleinen Patches bis zu eigenen Tools. Diese Übersicht wächst mit jedem Termin.",
     "projects.repo": "Repository",
     "projects.back": "Alle Projekte",
+    "projects.date": "Zuletzt aktualisiert",
+    "projects.contributors": "Mitwirkende",
+    "projects.contributors.avatars": "Avatare aller Mitwirkenden auf GitHub",
   },
   en: {
     "site.title": "Hackergarten Stuttgart",
@@ -141,6 +144,9 @@ export const ui = {
       "What we worked on at recent meetups – from small patches to tools of our own. This overview grows with every session.",
     "projects.repo": "Repository",
     "projects.back": "All projects",
+    "projects.date": "Last updated",
+    "projects.contributors": "Contributors",
+    "projects.contributors.avatars": "Avatars of all contributors on GitHub",
   },
 } as const;
 

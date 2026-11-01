@@ -1,5 +1,6 @@
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
+import { shieldNames } from "./config/shields";
 
 /**
  * One markdown file per project in `src/content/projects/`. The filename is the
@@ -8,12 +9,25 @@ import { glob } from 'astro/loaders';
  */
 export const collections = {
   projects: defineCollection({
-    loader: glob({ pattern: ['*.md', '!_*.md'], base: './src/content/projects' }),
+    loader: glob({
+      pattern: ["*.md", "!_*.md"],
+      base: "./src/content/projects",
+    }),
     schema: z.object({
       title: z.string(),
       date: z.coerce.date(),
       summary: z.string(),
-      repo: z.string().url().optional(),
+      github: z
+        .object({
+          repo: z.string().regex(/^[\w.-]+\/[\w.-]+$/, "expected `owner/name`"),
+          shields: z.array(z.enum(shieldNames)).default([]),
+          avatars: z.boolean().default(false),
+        })
+        .transform((github) => ({
+          ...github,
+          url: `https://github.com/${github.repo}`,
+        }))
+        .optional(),
     }),
   }),
 };
