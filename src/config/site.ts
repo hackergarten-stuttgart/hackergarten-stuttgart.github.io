@@ -10,11 +10,14 @@ export const links = {
     "https://www.meetup.com/hackergarten-stuttgart/events/?type=upcoming",
   discord: "https://discord.gg/EXEP5aQx8y",
   github: "https://github.com/hackergarten-stuttgart",
+  githubBase: "https://github.com",
   hackergarten: "https://hackergarten.net",
   maps: "https://maps.app.goo.gl/va9SG3uaFDLB9QTP8",
   codecentric: "https://www.codecentric.de/standorte/stuttgart",
   wifo: "https://wrs.region-stuttgart.de/",
   heroVideo: "https://www.youtube-nocookie.com/embed/Rf5srOnhxgA",
+  shields: "https://img.shields.io",
+  contribRocks: "https://contrib.rocks/image",
 } as const;
 
 /**

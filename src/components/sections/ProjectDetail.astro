@@ -2,8 +2,12 @@
 import { render, type CollectionEntry } from 'astro:content';
 import { formatDate, getLocalePath, t, type Lang } from '../../i18n/ui';
 import ExternalLink from '../ui/ExternalLink.astro';
+import Icon from '../ui/Icon.astro';
 import Prose from '../ui/Prose.astro';
 import Section from '../ui/Section.astro';
+import Shields from '../ui/Shields.astro';
+import { shields } from '../../config/shields';
+import { links } from '../../config/site';
 
 interface Props {
   lang: Lang;
@@ -11,7 +15,7 @@ interface Props {
 }
 
 const { lang, project } = Astro.props;
-const { title, date, summary, repo } = project.data;
+const { title, date, summary, github } = project.data;
 const { Content } = await render(project);
 ---
 
@@ -22,26 +26,51 @@ const { Content } = await render(project);
   </a>
 
   <header class="header">
-    <time class="date" datetime={date.toISOString().slice(0, 10)}>
-      {formatDate(lang, date)}
-    </time>
     <h1 class="title">{title}</h1>
+    {github && <Shields repo={github.repo} url={github.url} names={github.shields} />}
     <p class="summary">{summary}</p>
   </header>
 
   <Prose>
     <Content />
+    {
+      github?.avatars && (
+        <>
+          <h2>{t(lang, 'projects.contributors')}</h2>
+          <div>
+            <ExternalLink href={`${github.url}${shields.contributors.href}`}>
+              <img
+                class="contributors-faces"
+                src={`${links.contribRocks}?repo=${github.repo}&columns=10`}
+                alt={t(lang, 'projects.contributors.avatars')}
+                loading="lazy"
+                decoding="async"
+              />
+            </ExternalLink>
+          </div>
+        </>
+      )
+    }
   </Prose>
 
-  {
-    repo && (
-      <p class="repo">
-        <ExternalLink href={repo} hint>
-          {t(lang, 'projects.repo')}
-        </ExternalLink>
-      </p>
-    )
-  }
+  <p class="meta">
+    {
+      github && (
+        <>
+          <ExternalLink href={github.url} hint>
+            <Icon name="github" />
+            {t(lang, 'projects.repo')}
+          </ExternalLink>
+          <span aria-hidden="true">·</span>
+        </>
+      )
+    }
+    <span class="date">
+      <Icon name="clock" />
+      {t(lang, 'projects.date')}
+      <time datetime={date.toISOString().slice(0, 10)}>{formatDate(lang, date)}</time>
+    </span>
+  </p>
 </Section>
 
 <style>
@@ -64,14 +93,7 @@ const { Content } = await render(project);
     display: flex;
     flex-direction: column;
     gap: var(--gap);
-    max-width: var(--measure-md);
-  }
-
-  .date {
-    font-family: var(--font-mono);
-    font-size: var(--fs-sm);
-    letter-spacing: var(--tracking-mono);
-    color: var(--accent);
+    max-width: var(--measure-prose);
   }
 
   .title {
@@ -88,11 +110,34 @@ const { Content } = await render(project);
     text-wrap: pretty;
   }
 
-  .repo {
+  .contributors-faces {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gap-tight);
     margin: var(--space-12) 0 0;
     padding-top: var(--space-6);
     border-top: var(--border-width) solid var(--line);
     font-size: var(--fs-md);
     font-weight: var(--weight-medium);
+  }
+
+  .meta :global(a),
+  .date {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-tight);
+  }
+
+  .date {
+    color: var(--muted);
   }
 </style>

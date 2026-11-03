@@ -31,11 +31,11 @@ const projects = (await getCollection('projects')).sort(
           external={false}
           interactive
         >
+          <h2 class="title">{data.title}</h2>
+          <p class="summary">{data.summary}</p>
           <time class="date" datetime={data.date.toISOString().slice(0, 10)}>
             {formatDate(lang, data.date)}
           </time>
-          <h2 class="title">{data.title}</h2>
-          <p class="summary">{data.summary}</p>
         </Card>
       ))
     }
@@ -44,6 +44,8 @@ const projects = (await getCollection('projects')).sort(
 
 <style>
   .date {
+    margin-top: auto;
+    align-self: flex-end;
     font-family: var(--font-mono);
     font-size: var(--fs-xs);
     letter-spacing: var(--tracking-mono);

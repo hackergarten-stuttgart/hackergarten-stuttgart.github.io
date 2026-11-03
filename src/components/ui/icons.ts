@@ -1,11 +1,16 @@
+import { Clock, type IconNode } from "lucide";
 import { siDiscord, siGithub, siMeetup } from "simple-icons";
 
-/** Brand icon paths from Simple Icons, drawn on a 24×24 viewBox. */
+/**
+ * Icons drawn on a 24×24 viewBox: brand logos from Simple Icons as filled path strings,
+ * generic glyphs from Lucide as stroked element nodes.
+ */
 export const icons = {
   discord: siDiscord.path,
   github: siGithub.path,
   meetup: siMeetup.path,
-} as const;
+  clock: Clock,
+} as const satisfies Record<string, string | IconNode>;
 
 export type IconName = keyof typeof icons;
 export type IconLink = { href: string; label: string; icon: IconName };

@@ -118,6 +118,7 @@
   --icon-size: 18px;
   --icon-size-lg: 32px;
   --logo-height: 64px;
+  --shield-height: 20px;
 
   --radius: 6px;
   --radius-card: var(--radius);

@@ -1,4 +1,5 @@
 ---
+import type { IconNode } from 'lucide';
 import { icons, type IconName } from './icons';
 
 interface Props {
@@ -7,16 +8,34 @@ interface Props {
 }
 
 const { name, size = 'md' } = Astro.props;
+const icon: string | IconNode = icons[name];
+const brand = typeof icon === 'string';
+const nodes: IconNode = brand ? [['path', { d: icon }]] : icon;
 ---
 
-<svg class:list={['icon', size]} viewBox="0 0 24 24" aria-hidden="true">
-  <path d={icons[name]}></path>
+<svg
+  class:list={['icon', size, brand ? 'brand' : 'outline']}
+  viewBox="0 0 24 24"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  {nodes.map(([Tag, attrs]) => <Tag {...attrs} />)}
 </svg>
 
 <style>
   .icon {
     flex-shrink: 0;
+  }
+
+  .brand {
     fill: currentColor;
+  }
+
+  .outline {
+    fill: none;
+    stroke: currentColor;
   }
 
   .md {

@@ -1,0 +1,55 @@
+---
+import { links } from '../../config/site';
+import { externalAttrs } from './external';
+import { shields, type ShieldName } from '../../config/shields';
+
+interface Props {
+  /** Repository as `owner/name`. */
+  repo: string;
+  /** Repository page the badges link into. */
+  url: string;
+  names: ShieldName[];
+}
+
+const { repo, url, names } = Astro.props;
+const badges = names.map((name) => ({
+  ...shields[name],
+  src: `${links.shields}/${shields[name].path}/${repo}`,
+}));
+---
+
+{
+  badges.length > 0 && (
+    <ul class="shields">
+      {badges.map(({ href, alt, src }) => (
+        <li>
+          <a href={`${url}${href}`} {...externalAttrs()}>
+            <img src={src} alt={alt} />
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+<style>
+  .shields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-tight);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .shields a {
+    display: block;
+  }
+
+  /* Badge widths change with their values; the fixed height reserves the space. */
+  .shields img {
+    display: block;
+    width: auto;
+    height: var(--shield-height);
+  }
+</style>
