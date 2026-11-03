@@ -144,7 +144,7 @@ export const ui = {
       "What we worked on at recent meetups – from small patches to tools of our own. This overview grows with every session.",
     "projects.repo": "Repository",
     "projects.back": "All projects",
-    "projects.date": "Added in",
+    "projects.date": "Added on",
     "projects.contributors": "Contributors",
     "projects.contributors.avatars": "Avatars of all contributors on GitHub",
   },
