@@ -1,4 +1,5 @@
 ---
+import BrandMark from '../../assets/brand-mark.svg';
 import { getLocalePath, t, type Lang } from '../../i18n/ui';
 
 interface Props {
@@ -9,22 +10,7 @@ const { lang } = Astro.props;
 ---
 
 <a href={getLocalePath(lang, '/')} class="brand">
-  <svg
-    class="mark"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 48 48"
-    fill="none"
-    stroke-width="4"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M12 14 L4 24 L12 34" class="mark__accent" />
-    <path d="M36 14 L44 24 L36 34" class="mark__signal" />
-    <path d="M20.5 43 L22.8 24 H25.2 L27.5 43 Z" class="mark__tower" stroke-width="1.5" />
-    <path d="M18.5 14 H29.5 L27.5 23 H20.5 Z" class="mark__tower" stroke-width="2" />
-    <path d="M24 12 V4" class="mark__tower" stroke-width="3" />
-  </svg>
+  <BrandMark class="mark" aria-hidden="true" />
   <span class="wordmark">{t(lang, 'nav.brand')}</span>
 </a>
 
@@ -45,19 +31,6 @@ const { lang } = Astro.props;
     width: var(--control-size);
     height: var(--control-size);
     flex-shrink: 0;
-  }
-
-  .mark__accent {
-    stroke: var(--accent-fill);
-  }
-
-  .mark__signal {
-    stroke: var(--signal-fill);
-  }
-
-  .mark__tower {
-    fill: var(--fg);
-    stroke: var(--fg);
   }
 
   .wordmark {
